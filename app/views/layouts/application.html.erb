@@ -2,12 +2,72 @@
 <html>
   <head>
     <title>NaganoCake</title>
+    <script src="https://kit.fontawesome.com/6d1ba7cd7b.js" crossorigin="anonymous"></script>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <meta name= "viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
+  
+  <header>
+   <nav class="navbar navbar-expand-lg navbar-dark bg-info">
+    <div class="container">
+      <%= link_to "ながのCAKE",root_path, class: "navbar-brand p-3 far fa-smile-wink nav-link text-light" %>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav ml-auto">
+              <% if customer_signed_in? %>
+              <li>
+                <%= link_to "マイページ",customers_path, class: "fas fa-pager nav-link text-light" %>
+              </li>
+              <li>
+                <%= link_to "商品一覧",items_path, class: "fas fa-birthday-cake nav-link text-light" %>
+              </li>
+              <li>
+                <%= link_to "カート",cart_items_path, class: "fas fa-cart-plus nav-link text-light" %>
+              </li>
+              <li>
+                <%= link_to "ログアウト",destroy_customer_session_path, method: :delete, class: "fas fa-sign-out-alt nav-link text-light" %>
+              </li>
+              
+              <% elsif admin_signed_in? %>
+              <li>
+                <%= link_to "商品一覧",admin_items_path, class: "fas fa-birthday-cake nav-link text-light" %>
+              </li>
+              <li>
+                <%= link_to "会員一覧",admin_customers_path, class: "fas fa-users nav-link text-light" %>
+              </li>
+              <li>
+                <%= link_to "注文履歴一覧",admin_path, class: "fas fa-paperclip nav-link text-light" %>
+              </li>
+              <li>
+                <%= link_to "ジャンル一覧",admin_genres_path, class: "fas fa-tasks nav-link text-light" %>
+              </li>
+              <li>
+                <%= link_to "ログアウト",destroy_admin_session_path, method: :delete, class: "fas fa-sign-out-alt nav-link text-light" %>
+              </li>
+              <% else %>
+              <li>
+                <%= link_to "About",about_path, class: "fas fa-sticky-note nav-link text-light" %>
+              </li>
+              <li>
+                <%= link_to "商品一覧",items_path, class: "fas fa-birthday-cake nav-link text-light" %>
+              </li>
+              <li>
+                <%= link_to "新規登録",new_customer_registration_path, class: "fas fa-user-plus nav-link text-light" %>
+              </li>
+              <li>
+                <%= link_to "ログイン",new_customer_session_path, class: "fas fa-sign-in-alt nav-link text-light" %>
+              </li>
+              <% end %> 
+        </ul>      
+      </div>
+    </div>
+   </nav>
+ </header>
 
   <body>
     <%= yield %>

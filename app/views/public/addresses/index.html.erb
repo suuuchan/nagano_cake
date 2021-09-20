@@ -1,0 +1,59 @@
+<div class="error_explanation">
+      <h3><% if @address.errors.any? %><%= pluralize(@address.errors.count, "error") %> prohibited this teacher from being saved:</h3>
+      <div class = "alert alert-danger">
+        <ul><% @address.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+        <% end %></ul>
+        </div>
+      <% end %>
+    </div>
+
+<%= form_with model:@address,local:true do |f| %>
+<%= f.hidden_field :customer_id, :value => current_customer.id %>
+<div class = "row">
+ <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
+  <h2>配送先登録/一覧</h2>
+  <div class = "form">
+   <label for = "postal_code">郵便番号</label>
+   <%= f.text_field :postal_code, autofocus: true, placeholder:"０００００００" %>
+  </div>
+  
+  <div class = "form">
+   <label for = "address">住所</label>
+   <%= f.text_field :address, autofocus: true, placeholder:"東京都渋谷区代々木神園町０−０" %>
+  </div>
+  
+  <div class = "form">
+   <label for = "name">宛名</label>
+   <%= f.text_field :name, autofocus: true, placeholder:"令和道子" %>
+  </div>
+  
+  <div class = "form">
+   <%= f.submit "新規登録", class:"btn btn-secondary" %>
+  </div>
+ 
+ <% end %> 
+ </div>
+</div>
+
+<table class = "table table-bordered">
+ <thead>
+  <tr>
+   <th>郵便番号</th>
+   <th>住所</th>
+   <th>宛名</th>
+   <th>　　　</th>
+  </tr>
+  <% @addresses.each do |address| %>
+  <tr>
+   <td><%= address.postal_code %></td>
+   <td><%= address.address %></td>
+   <td><%= address.name %></td>
+   <td><%= link_to "編集する",edit_address_path(address.id), class: "btn btn-success" %>
+   <%= link_to "削除する",address_path(address.id), method: :delete,data: {confirm: "本当に削除しますか？"} ,class: "btn btn-danger" %></td>
+  </tr>
+  <% end %>
+  
+  
+ </thead>
+</table>

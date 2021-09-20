@@ -1,0 +1,23 @@
+<div class = "product">
+  <%= attachment_image_tag @item, :image, :fill, 2000, 1500, format:"jpeg" %>
+</div>
+<div class = "introdaction">
+  <ul class = "show">
+    <li><%= @item.name %></li>
+    <li><%= @item.introduction %></li>
+    <li>¥<%= @item.price %>(税込)</li>
+  </ul>
+</div>
+
+<%= form_with model:@cart_item,local:true do |f| %>
+　
+ <%= f.hidden_field :item_id, value:@item.id %>
+
+ <div class = "form">
+   <label for = "inputamount">個数を選択</label>
+   <%= f.select :amount, *[1..10] %>
+ </div>
+ <div class = "form">
+   <%= f.submit "カートに入れる" %>
+ </div>
+<% end %>

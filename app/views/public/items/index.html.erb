@@ -1,0 +1,18 @@
+<h2>商品一覧</h2>
+<% @items.each do |item| %>
+<ul class = "item-index">
+  <li class = "item">
+    <div class = "image">
+      <%= link_to item_path(item.id) do %>
+      <%= attachment_image_tag item, :image, :fill, 900, 600, format:"jpeg" %>
+      <% end %>
+    </div>
+    <div class = "name">
+      <%= item.name %>
+    </div>
+    <div class = "price">
+      <%= item.price %>円
+    </div>
+  </li>
+</ul>
+<% end %>
