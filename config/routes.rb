@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     resources :orders, only: [:show, :update]
     resources :orders_details, only: [:update]
   end
-  
+  post "/orders/confirm" => "public/orders#confirm"
   scope module: :public do
     resources :items, only: [:index, :show]
     resources :cart_items, only: [:index, :update, :create]
@@ -24,7 +24,6 @@ Rails.application.routes.draw do
     patch "/customers/withdraw" => "public/customers#withdraw"
     delete "/cart_items/:id" => "public/cart_items#destroy"
     delete "/cart_items" => "public/cart_items#destroy_all"
-    post "/orders/confirm" => "public/orders#confirm"
     get "orders/thanks" => "public/orders#thanks"
     get "/customers" => "public/customers#show"
     get "customers/edit" => "public/customers#edit"
